@@ -404,8 +404,8 @@ The Ubuntu agent will register itself via a PSK, so that communication between t
 
 The following steps are required to install custom userparameters and/or scripts:
 
-* Put the desired userparameter file in the `templates/userparameters` directory and name it as `<userparameter_name>.j2`. For example: `templates/userparameters/mysql.j2`
-* Put the scripts directory (if any) in the `files/scripts` directory. For example: `files/scripts/mysql`
+* Put the desired userparameter file in the `templates/userparameters` directory and name it as `<userparameter_name>.j2`. For example: `templates/userparameters/mysql.j2`. You may specify custom location on the localhost, where userparameter files will be placed with `zabbix_userparameters_localpath` variable.
+* Put the scripts directory (if any) in the `files/scripts` directory. For example: `files/scripts/mysql`. You may specify custom folder, under which scripts directory will be placed with `zabbix_userscripts_localpath` variable.
 * Add `zabbix_agent_userparameters` variable to the playbook as a list of dictionaries and define userparameter name and scripts directory name (if there are no scripts just no not specify the `scripts_dir` variable).
 
 Example:
