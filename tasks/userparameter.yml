@@ -26,11 +26,11 @@
 - name: "Installing user-defined system packages"
   package:
     name: "{{ item }}"
-    state: "{{ present }}"
+    state: "present"
   with_items: "{{ zabbix_user_packages }}"
 
 - name: "Installing user-defined pip packages"
   pip:
     name: "{{ item }}"
-    state: present
+    state: "present"
   with_items: "{{ zabbix_user_pip_packages }}"
