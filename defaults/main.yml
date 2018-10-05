@@ -86,6 +86,8 @@ zabbix_agent_userparameters: []
 zabbix_agent_custom_scripts: false
 zabbix_agent_loadmodulepath: ${libdir}/modules
 zabbix_agent_loadmodule:
+zabbix_user_packages: []
+zabbix_user_pip_packages: []
 
 # TLS settings
 zabbix_agent_tlsconnect:
