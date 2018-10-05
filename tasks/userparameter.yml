@@ -2,8 +2,8 @@
 
 - name: "Installing user-defined userparameters"
   template:
-    src: "{{ zabbix_userparameters_localpath }}/{{ item.name }}.j2"
-    dest: "{{ zabbix_agent_include }}/userparameter_{{ item.name }}.conf"
+    src: "{{ item.path }}/{{ item.name }}"
+    dest: "{{ zabbix_agent_include }}/userparameter_{{ item.name.split('.j2')[0] }}"
     owner: zabbix
     group: zabbix
     mode: 0644
@@ -13,7 +13,7 @@
 
 - name: "Installing user-defined scripts"
   copy:
-    src: "{{ zabbix_userscripts_localpath }}/{{ item.scripts_dir }}"
+    src: "{{ item.scripts_dir }}"
     dest: "/etc/zabbix/scripts/"
     owner: zabbix
     group: zabbix
