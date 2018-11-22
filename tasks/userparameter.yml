@@ -33,4 +33,5 @@
   pip:
     name: "{{ item }}"
     state: "present"
+    extra_args: "{{ zabbix_user_pip_packages_args }}"
   with_items: "{{ zabbix_user_pip_packages }}"
