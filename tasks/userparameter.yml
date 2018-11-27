@@ -9,6 +9,7 @@
     mode: 0644
   notify: restart zabbix-agent
   become: yes
+  when: item.condition | default("True")
   with_items: "{{ zabbix_agent_userparameters }}"
 
 - name: "Installing user-defined scripts"
@@ -21,7 +22,9 @@
   notify: restart zabbix-agent
   become: yes
   with_items: "{{ zabbix_agent_userparameters }}"
-  when: item.scripts_dir is defined
+  when:
+    - item.scripts_dir is defined
+    - item.condition | default("True")
 
 - name: "Installing user-defined system packages"
   package:

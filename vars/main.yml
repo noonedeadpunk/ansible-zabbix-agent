@@ -1,0 +1,9 @@
+---
+_zabbix_link_templates: |-
+  {% set templates = [] %}
+  {% for template in zabbix_link_templates %}
+  {%   if template.condition | default(True) %}
+  {%     set _ = templates.append(template.name|default(template)) %}
+  {%   endif %}
+  {% endfor %}
+  {{ templates }}
