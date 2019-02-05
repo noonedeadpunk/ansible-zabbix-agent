@@ -41,7 +41,7 @@
 - block:
     - name: "Debian | Install gpg key"
       apt_key:
-        id: "{{ sign_keys[zabbix_short_version][ansible_distribution_release]['sign_key'] }}"
+        id: "{{ sign_keys[zabbix_short_version][zabbix_distribution]['sign_key'] }}"
         url: http://repo.zabbix.com/zabbix-official-repo.key
       when:
         - zabbix_repo == "zabbix"
@@ -56,8 +56,8 @@
         state: present
       become: yes
       with_items:
-        - "deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ zabbix_repo_family }}/ {{ ansible_distribution_release }} main"
-        - "deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ zabbix_repo_family }}/ {{ ansible_distribution_release }} main"
+        - "deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ zabbix_repo_family }}/ {{ zabbix_distribution }} main"
+        - "deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ zabbix_repo_family }}/ {{ zabbix_distribution }} main"
       tags:
         - zabbix-agent
         - init
