@@ -7,7 +7,7 @@ zabbix_agent_conf: zabbix_agentd.conf
 
 zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
 
-zabbix_repo_family: "{{ (ansible_distribution | lower == 'linux mint') | ternary('debian', ansible_distribution | lower) }}"
+zabbix_repo_family: "{{ (ansible_distribution | lower == 'linux mint') | ternary('ubuntu', ansible_distribution | lower) }}"
 zabbix_distribution: "{{ (ansible_distribution | lower == 'linux mint') | ternary('xenial', ansible_distribution_release) }}"
 
 zabbix_common_packages:
