@@ -1,0 +1,14 @@
+---
+
+- name: "Installing zabbix-agent"
+  package:
+    pkg: "{{ item }}"
+    state: "{{ zabbix_agent_package_state }}"
+    update_cache: "{{ (ansible_pkg_mgr in ['apt', 'zypper']) | ternary('yes', omit) }}"
+  become: yes
+  with_items: "{{ zabbix_agent_packages }}"
+  when:
+    - zabbix_repo == "zabbix"
+  tags:
+    - init
+    - zabbix-agent

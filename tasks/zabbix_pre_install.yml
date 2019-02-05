@@ -1,0 +1,77 @@
+---
+
+- name: "Include Zabbix gpg ids"
+  include_vars: zabbix_sign_keys.yml
+
+- name: "Installing common packages"
+  package:
+    name: "{{ item.name }}"
+    state: installed
+    update_cache: "{{ (ansible_pkg_mgr in ['apt', 'zypper']) | ternary('yes', omit) }}"
+  when: item.condition | default(true)
+  with_items: "{{ zabbix_common_packages }}"
+
+- block:
+    - name: "RedHat | Install basic repo file"
+      yum_repository:
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        baseurl: "{{ item.baseurl }}"
+        gpgcheck: "{{ item.gpgcheck }}"
+        gpgkey: "{{ item.gpgkey }}"
+        state: "{{ item.state | default('present') }}"
+      with_items: "{{ zabbix_repo_yum }}"
+      register: yum_repo_installed
+      become: yes
+      when:
+        zabbix_repo == "zabbix"
+      tags:
+        - zabbix-agent
+
+    - name: "Do a yum clean"
+      shell: yum clean all
+      args:
+        warn: False
+      when: yum_repo_installed.changed
+      become: yes
+      tags:
+        - skip_ansible_lint
+  when: ansible_os_family == "RedHat"
+
+- block: 
+  - name: "Debian | Install gpg key"
+    apt_key:
+      id: "{{ sign_keys[zabbix_short_version][ansible_distribution_release]['sign_key'] }}"
+      url: http://repo.zabbix.com/zabbix-official-repo.key
+    when:
+      - zabbix_repo == "zabbix"
+    become: yes
+    tags:
+      - zabbix-agent
+      - init
+
+  - name: "Debian | Installing repositories"
+    apt_repository:
+      repo: "{{ item }}"
+      state: present
+    become: yes
+    with_items:
+      - "deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution == 'Linuxmint' | ternary('debian', ansible_distribution) }}/ {{ ansible_distribution_release }} main"
+      - "deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution == 'Linuxmint' | ternary('debian', ansible_distribution) }}/ {{ ansible_distribution_release }} main"
+    tags:
+      - zabbix-agent
+      - init
+  when: ansible_os_family == "Debian"
+
+- name: "Suse | Install basic repo file"
+  zypper_repository:
+    repo: "{{ suse[ansible_distribution][ansible_distribution_major_version]['url'] }}"
+    name: "{{ suse[ansible_distribution][ansible_distribution_major_version]['name'] }}"
+    state: present
+  when:
+    - zabbix_repo == "zabbix"
+    - ansible_os_family == "Suse"
+  become: yes
+  tags:
+    - zabbix-agent
+    - init
