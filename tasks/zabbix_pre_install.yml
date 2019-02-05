@@ -38,29 +38,29 @@
         - skip_ansible_lint
   when: ansible_os_family == "RedHat"
 
-- block: 
-  - name: "Debian | Install gpg key"
-    apt_key:
-      id: "{{ sign_keys[zabbix_short_version][ansible_distribution_release]['sign_key'] }}"
-      url: http://repo.zabbix.com/zabbix-official-repo.key
-    when:
-      - zabbix_repo == "zabbix"
-    become: yes
-    tags:
-      - zabbix-agent
-      - init
+- block:
+    - name: "Debian | Install gpg key"
+      apt_key:
+        id: "{{ sign_keys[zabbix_short_version][ansible_distribution_release]['sign_key'] }}"
+        url: http://repo.zabbix.com/zabbix-official-repo.key
+      when:
+        - zabbix_repo == "zabbix"
+      become: yes
+      tags:
+        - zabbix-agent
+        - init
 
-  - name: "Debian | Installing repositories"
-    apt_repository:
-      repo: "{{ item }}"
-      state: present
-    become: yes
-    with_items:
-      - "deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution == 'Linuxmint' | ternary('debian', ansible_distribution) }}/ {{ ansible_distribution_release }} main"
-      - "deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ ansible_distribution == 'Linuxmint' | ternary('debian', ansible_distribution) }}/ {{ ansible_distribution_release }} main"
-    tags:
-      - zabbix-agent
-      - init
+    - name: "Debian | Installing repositories"
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+      become: yes
+      with_items:
+        - "deb http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ zabbix_repo_family }}/ {{ ansible_distribution_release }} main"
+        - "deb-src http://repo.zabbix.com/zabbix/{{ zabbix_version }}/{{ zabbix_repo_family }}/ {{ ansible_distribution_release }} main"
+      tags:
+        - zabbix-agent
+        - init
   when: ansible_os_family == "Debian"
 
 - name: "Suse | Install basic repo file"

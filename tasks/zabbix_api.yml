@@ -1,3 +1,4 @@
+---
 - name: "Create hostgroups"
   local_action:
     module: zabbix_group
