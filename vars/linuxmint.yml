@@ -8,7 +8,7 @@ zabbix_agent_conf: zabbix_agentd.conf
 zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
 
 zabbix_repo_family: "debian"
-zabbix_distribution: "{{ (ansible_distribution_release == 'sonya' or ansible_distribution_release == 'serena') | ternary('xenial', false)}}"
+zabbix_distribution: "xenial"
 zabbix_common_packages:
   - name: policycoreutils-python-utils
     condition: "{{ zabbix_selinux | bool }}"
