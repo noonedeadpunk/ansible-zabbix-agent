@@ -14,4 +14,4 @@ zabbix_common_packages:
   - name: policycoreutils-python-utils
     condition: "{{ zabbix_selinux | bool }}"
   - name: python-pip
-    condition: "{{ zabbix_user_pip_packages | length > 0 }}"
+    condition: "{{ (zabbix_user_pip_packages | length > 0) and (zabbix_user_pip_install | bool) }}"

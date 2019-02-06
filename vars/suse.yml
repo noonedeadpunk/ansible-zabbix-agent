@@ -9,4 +9,4 @@ zabbix_common_packages:
   - name: python-libxml2
   - name: python-xml
   - name: python-pip
-    condition: "{{ zabbix_user_pip_packages | length > 0 }}"
+    condition: "{{ (zabbix_user_pip_packages | length > 0) and (zabbix_user_pip_install | bool) }}"
