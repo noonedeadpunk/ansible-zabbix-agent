@@ -13,3 +13,5 @@ zabbix_distribution: "{{ (ansible_distribution | lower == 'linux mint') | ternar
 zabbix_common_packages:
   - name: policycoreutils-python-utils
     condition: "{{ zabbix_selinux | bool }}"
+  - name: python-pip
+    condition: "{{ zabbix_user_pip_packages | length > 0 }}"
