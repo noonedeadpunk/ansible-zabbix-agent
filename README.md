@@ -194,17 +194,17 @@ These variables are specific for Zabbix 3.0 and higher:
 
     Possible values:
 
-    * unencrypted
-    * psk
-    * cert
+    * "1" for unencrypted
+    * "2" for psk
+    * "4" for cert
 
 * `zabbix_agent_tlsaccept`: What incoming connections to accept.
 
     Possible values:
 
-    * unencrypted
-    * psk
-    * cert
+    * "1" for unencrypted
+    * "2" for psk
+    * "4" for cert
 
 * `zabbix_agent_tlscafile`: Full pathname of a file containing the top-level CA(s) certificates for peer certificate verification.
 
@@ -381,8 +381,8 @@ and in the playbook only specifying:
 
 Variables e.g. in the playbook or in `host_vars/myhost`:
 
-    zabbix_agent_tlsaccept: psk
-    zabbix_agent_tlsconnect: psk
+    zabbix_agent_tlsaccept: 2
+    zabbix_agent_tlsconnect: 2
     zabbix_agent_tlspskidentity: "myhost PSK"
     zabbix_agent_tlspsk_secret: b7e3d380b9d400676d47198ecf3592ccd4795a59668aa2ade29f0003abbbd40d
     zabbix_agent_tlspskfile: /etc/zabbix/zabbix_agent_pskfile.psk

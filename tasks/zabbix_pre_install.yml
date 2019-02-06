@@ -28,7 +28,7 @@
       tags:
         - zabbix-agent
 
-    - name: "Do a yum clean"
+    - name: "RedHat | Do a yum clean"
       shell: yum clean all
       args:
         warn: False

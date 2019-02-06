@@ -266,7 +266,7 @@ LoadModule={{ zabbix_agent_loadmodule }}
 # Default:
 # TLSConnect=unencrypted
 {% if zabbix_agent_tlsconnect is defined and zabbix_agent_tlsconnect %}
-TLSConnect={{ zabbix_agent_tlsconnect }}
+TLSConnect={{ _zabbix_tls_map[zabbix_agent_tlsconnect] }}
 {% endif %}
 
 ### Option: TLSAccept
@@ -280,7 +280,7 @@ TLSConnect={{ zabbix_agent_tlsconnect }}
 # Default:
 # TLSAccept=unencrypted
 {% if zabbix_agent_tlsaccept is defined and zabbix_agent_tlsaccept %}
-TLSAccept={{ zabbix_agent_tlsaccept }}
+TLSAccept={{ _zabbix_tls_map[zabbix_agent_tlsaccept] }}
 {% endif %}
 
 ### Option: TLSCAFile

@@ -63,8 +63,8 @@ provisioner:
         database_type_long: mysql
     host_vars:
       zabbix-agent-ubuntu:
-        zabbix_agent_tlsaccept: psk
-        zabbix_agent_tlsconnect: psk
+        zabbix_agent_tlsaccept: 2
+        zabbix_agent_tlsconnect: 2
         zabbix_agent_tlspskidentity: "myhost PSK"
         zabbix_agent_tlspsk_secret: b7e3d380b9d400676d47198ecf3592ccd4795a59668aa2ade29f0003abbbd40d
         zabbix_agent_tlspskfile: /etc/zabbix/zabbix_agent_pskfile.psk

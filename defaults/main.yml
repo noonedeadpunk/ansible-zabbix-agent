@@ -90,17 +90,17 @@ zabbix_user_packages: []
 zabbix_user_pip_packages: []
 zabbix_user_pip_packages_args: ""
 
-# TLS settings
-zabbix_agent_tlsconnect:
-zabbix_agent_tlsaccept:
-zabbix_agent_tlscafile:
-zabbix_agent_tlscrlfile:
-zabbix_agent_tlsservercertissuer:
-zabbix_agent_tlsservercertsubject:
-zabbix_agent_tlscertfile:
-zabbix_agent_tlskeyfile:
-zabbix_agent_tlspskidentity:
-zabbix_agent_tlspskfile: ''
+# # TLS settings
+# zabbix_agent_tlsconnect:
+# zabbix_agent_tlsaccept:
+# zabbix_agent_tlscafile:
+# zabbix_agent_tlscrlfile:
+# zabbix_agent_tlsservercertissuer:
+# zabbix_agent_tlsservercertsubject:
+# zabbix_agent_tlscertfile:
+# zabbix_agent_tlskeyfile:
+# zabbix_agent_tlspskidentity:
+# zabbix_agent_tlspskfile: ''
 
 # Windows Related
 zabbix_version_long: 3.4.6
