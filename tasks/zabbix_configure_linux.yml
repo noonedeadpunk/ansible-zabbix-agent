@@ -49,3 +49,14 @@
   notify:
     - firewalld-reload
   tags: zabbix_agent_firewalld_enable
+
+- name: "Configure csf"
+  lineinfile:
+    dest: /etc/csf/csf.allow
+    line: "{{ item }}"
+    state: present
+  with_items:
+    - "tcp|in|d=10050|s={{ zabbix_agent_server }} # zabbix passive checks"
+    - "tcp|out|d=10051|d={{ zabbix_agent_serveractive }} # zabbix active checks"
+  when: zabbix_agent_csf_enable
+  notify: reload csf

@@ -10,3 +10,8 @@
 
 - name: firewalld-reload
   command: "firewall-cmd --reload"
+  become: yes
+
+- name: reload csf
+  command: csf -r
+  become: yes
