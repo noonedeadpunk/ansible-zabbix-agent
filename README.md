@@ -351,6 +351,7 @@ Including an example of how to use your role (for instance, with variables passe
            zabbix_macros:
              - macro_key: apache_type
                macro_value: reverse_proxy
+               condition: "{{ (inventory_hostname == 'localhost') | bool }}"
 
 ## Combination of group_vars and playbook
 You can also use the group_vars or the host_vars files for setting the variables needed for this role. File you should change: `group_vars/all` or `host_vars/<zabbix_server>` (Where <zabbix_server> is the hostname of the machine running Zabbix Server)
@@ -366,7 +367,8 @@ You can also use the group_vars or the host_vars files for setting the variables
           - Linux Servers
         zabbix_link_templates:
           - Template OS Linux
-          - Apache APP Template
+          - name: Apache APP Template
+            condition: "{{ (inventory_hostname in groups['web_servers']) | bool }}"
         zabbix_macros:
           - macro_key: apache_type
             macro_value: reverse_proxy

@@ -55,6 +55,7 @@
   when:
     - zabbix_macros is defined
     - item.macro_key is defined
+    - item.condition | default('True') | bool
   become: no
   tags:
     - api
