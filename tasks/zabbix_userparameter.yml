@@ -34,10 +34,12 @@
     name: "{{ item }}"
     state: "present"
   with_items: "{{ zabbix_user_packages }}"
-  when: item | bool
+  when:
+    - zabbix_user_packages | length > 0
 
 - name: "Installing user-defined pip packages"
   pip:
     name: "{{ zabbix_user_pip_packages }}"
     state: "present"
     extra_args: "{{ zabbix_user_pip_packages_args }}"
+  when: zabbix_user_pip_packages | length > 0
