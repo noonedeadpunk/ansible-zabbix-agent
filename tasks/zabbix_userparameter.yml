@@ -39,6 +39,8 @@
 
 - name: "Installing user-defined pip packages"
   pip:
+    executable: "{{ zabbix_user_pip_interpreter | default(omit) }}"
+    virtualenv: "{{ zabbix_user_virtualenv | default(omit) }}"
     name: "{{ zabbix_user_pip_packages }}"
     state: "present"
     extra_args: "{{ zabbix_user_pip_packages_args }}"
