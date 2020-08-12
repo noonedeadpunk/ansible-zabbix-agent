@@ -6,7 +6,7 @@
 - name: "Installing common packages"
   package:
     name: "{{ item.name }}"
-    state: installed
+    state: present
     update_cache: "{{ (ansible_pkg_mgr in ['apt', 'zypper']) | ternary('yes', omit) }}"
   when: item.condition | default(true)
   with_items: "{{ zabbix_common_packages }}"

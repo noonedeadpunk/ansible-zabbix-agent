@@ -49,8 +49,8 @@
 
   roles:
     - role: geerlingguy.mysql
-    - role: dj-wasabi.zabbix-server
-    - role: dj-wasabi.zabbix-web
+    - role: community.zabbix.zabbix_server
+    - role: community.zabbix.zabbix_web
 
 - name: Prepare
   hosts: all:!zabbix_server

@@ -1,10 +1,14 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: roles.yml
+    requirements-file: collections.yml
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  yamllint .
+  flake8
 
 platforms:
   - name: zabbix-server-centos
@@ -46,8 +50,6 @@ provisioner:
     docker:
       create: ../default/create.yml
       destroy: ../default/destroy.yml
-  lint:
-    name: ansible-lint
   inventory:
     group_vars:
       all:
@@ -74,5 +76,3 @@ scenario:
 
 verifier:
   name: testinfra
-  lint:
-    name: flake8

@@ -11,7 +11,7 @@
   fail:
     msg: "The specified network interface does not exist"
   when:
-    - zabbix_agent_listeninterface
+    - zabbix_agent_listeninterface | bool
     - (zabbix_agent_listeninterface not in ansible_all_ipv4_addresses)
   tags:
     - zabbix-agent
@@ -22,7 +22,7 @@
     zabbix_agent_listenip: "{{ hostvars[inventory_hostname]['ansible_' + zabbix_agent_listeninterface]['ipv4'].address | default('0.0.0.0') }}"
     zabbix_agent_ip: "{{ hostvars[inventory_hostname]['ansible_' + zabbix_agent_listeninterface]['ipv4'].address | default('0.0.0.0') }}"
   when:
-    - zabbix_agent_listeninterface
+    - zabbix_agent_listeninterface | bool
     - not zabbix_agent_listenip
   tags:
     - zabbix-agent
